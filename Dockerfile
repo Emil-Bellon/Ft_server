@@ -1,7 +1,7 @@
 FROM debian:buster
 
 COPY ./srcs ./srcs
-COPY setup.sh setup.sh
+COPY ./srcs/setup.sh setup.sh
 
 RUN apt-get update \
 	&& apt-get upgrade -y \
