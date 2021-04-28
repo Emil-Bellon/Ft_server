@@ -5,7 +5,16 @@ mv phpMyAdmin-5.1.0-all-languages /var/www/html/
 tar -xvf ./srcs/wordpress-5.7-fr_FR.tar
 mv wordpress /var/www/html/wordpress
 cp ./srcs/Marvinpng.png ./var/www/html/Marvinpng.png
-cp ./srcs/default_on ./etc/nginx/sites-available/default
+
+if [ "$autoindex" == "off" ]
+then
+	cp ./srcs/default_off ./etc/nginx/sites-available/default
+	echo "Starting without auto index"
+else
+	cp ./srcs/default_on ./etc/nginx/sites-available/default
+	echo "Starting with auto index"
+fi
+
 cp ./srcs/config.inc.php /var/www/html/phpMyAdmin-5.1.0-all-languages/config.inc.php
 cp ./srcs/index.html /var/www/html/index.html
 cp ./srcs/wp-config.php /var/www/html/wordpress/wp-config.php

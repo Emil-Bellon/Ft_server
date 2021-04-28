@@ -1,29 +1,22 @@
 server {
-	listen 80;
-	listen [::]:80;
-	server_name mysite;
+        listen 80;
+        listen [::]:80;
+        server_name ft_server;
 	return 301 https://$host$request_uri;
 }
+server {
+        listen 443 ssl;
+        listen [::]:443 ssl;
 
-server{
-	listen 443 ssl;
-	listen [::]:443 ssl;
-	
-	ssl_certificate /etc/nginx/certificate/nginx-certificate.crt;
-	ssl_certificate_key /etc/nginx/certificate/nginx.key;
+        ssl_certificate /etc/nginx/certificate/nginx-certificate.crt;
+        ssl_certificate_key  /etc/nginx/certificate/nginx.key;
+        root /var/www/html/;
+        index index.php index.html index.htm index.nginx-debian.html;
+        server_name ft_server;
 
-	
-	root /var/www/ft_server;
-	index index.html index.htm index.php;
-
-	autoindex off;
-
-	location / {
-		try_files $uri $uri/ =404;
-	}
-	location ~ \.php$ {
-		include snippets/fastcgi-php.conf;
-		fastcgi_pass unix:/var/run/php/php7.3-fpm.sock;
-	}
-	server_name ft_server;
+        location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/run/php/php7.3-fpm.sock;
+        }
+        autoindex off;
 }
