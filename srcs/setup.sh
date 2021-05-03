@@ -32,3 +32,4 @@ echo "update mysql.user set plugin='mysql_native_password' where user='root';" |
 echo "FLUSH PRIVILEGES;" | mysql -u root --skip-password
 
 bash
+sleep infinity
